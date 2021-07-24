@@ -62,7 +62,7 @@ const decryptOptions = {
         "y",
         "z",
     ],
-    interval: 50,
+    interval: 100,
 };
 
 const DecryptText = (props) => {
@@ -73,7 +73,7 @@ const DecryptText = (props) => {
             dencrypt(props.text || "");
         };
 
-        const action = setTimeout(updateText, 0);
+        const action = setTimeout(updateText, 1000);
 
         return () => clearTimeout(action);
     }, [dencrypt, props.text]);

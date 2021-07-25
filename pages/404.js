@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Image from 'next/image'
+import Image from '../client/components/Image'
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -14,8 +14,8 @@ const useStyles = makeStyles(() => ({
     img: {
         marginTop: 50,
         display: 'inline-block',
-        width: 500,
-        height:300
+        width: "50vh",
+        height: 300
     },
     imgContainer: {
         textAlign: 'center',
@@ -46,8 +46,7 @@ const NotFound = () => {
                     <Image
                         alt="Under development"
                         src="/static/images/undraw_page_not_found_su7k.svg"
-                        width={500}
-                        height={300}
+                        className={classes.img}
                     />
                 </Box>
             </Container>

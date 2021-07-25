@@ -1,8 +1,38 @@
 import React from 'react'
 import { Typography } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import PropTypes from 'prop-types'
 import { toArray } from 'lodash'
-import styles from './TypingText.module.css'
+
+const useStyles = makeStyles(() => ({
+    typing_text_cursor: {
+        animation: "$blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite"
+    },
+    "@keyframes blinking-cursor": {
+        "0%": {
+            opacity: 0,
+        },
+        "50%": {
+            opacity: 1,
+        },
+        "100%": {
+            opacity: 0,
+        },
+    }
+}))
+
+const Cursor = ({ className, ...props }) => {
+    const classes = useStyles()
+    return (
+        <Typography
+            component={"span"}
+            className={`${classes.typing_text_cursor} ${className}`}
+            {...props}
+        >
+            |
+        </Typography>
+    )
+}
 
 class TypingText extends React.Component {
 
@@ -152,7 +182,7 @@ class TypingText extends React.Component {
         return (
             <Typography {...other} aria-label={this.props.items[this.state.index]}>
                 {this.state.output}
-                {cursor ? <Typography className={styles.typing_text_cursor} component={"span"} {...other}>|</Typography> : null}
+                {cursor ? <Cursor {...other} /> : null}
             </Typography>
         )
     }
@@ -183,5 +213,6 @@ TypingText.defaultProps = {
     typingInterval: 50,
     random: false
 }
+
 
 export default TypingText

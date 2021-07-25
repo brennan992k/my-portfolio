@@ -30,6 +30,11 @@ const articles = createSlice({
     reducers: {
         setLoading(state, action) {
             state.loading = action.payload
+            return state
+        },
+        setParams(state, action) {
+            state.params = { ...state.params, ...action.payload }
+            return state
         },
         setArticles(state, action) {
             const { items, total, params } = action.payload
@@ -37,19 +42,21 @@ const articles = createSlice({
             state.total = total
             state.params = params
             state.loading = false
+            return state
         },
         setDataInCache(state, action) {
             const { items, total, params } = action.payload
             state.items = items
             state.total = total
             state.params = params
+            state.loading = false
             const cacheKey = getArticlesCacheKey(params)
             state.cache[cacheKey] = {
                 items,
                 total,
                 params
-            },
-                state.loading = false
+            }
+            return state
         },
     }
 })
@@ -96,6 +103,11 @@ export const fetchMoreArticles = (currentState) => async (dispatch) => {
     })
 }
 
-export const { setLoading } = articles.actions
+export const { setLoading, setParams } = articles.actions
+
+export const getArticles = (store) => {
+    const value = store.getState()
+    return value?.[articles.name]
+}
 
 export default articles

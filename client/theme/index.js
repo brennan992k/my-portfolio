@@ -12,10 +12,6 @@ const theme = createTheme({
       contrastText: '#ffffff',
       main: '#5664d2'
     },
-    text: {
-      primary: '#172b4d',
-      secondary: '#6b778c'
-    }
   },
   shadows,
   typography

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         width: "3px",
         padding: "10px 15px",
         height: "35px",
-        border: "2px solid #fff",
+        border: `2px solid ${theme.palette.text.primary}`,
         borderRadius: "25px",
         opacity: 0.75,
         boxSizing: "content-box",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         width: "3px",
         height: "10px",
         borderRadius: "25%",
-        backgroundColor: "#fff",
+        backgroundColor: theme.palette.text.primary,
         animation: `$scroll 3000ms ${theme.transitions.easing.easeInOut} infinite`
     },
     "@keyframes scroll": {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const ScrollIndicator = () => {
+const ScrollCursor = () => {
     const classes = useStyles()
     return (
         <div className={classes.scrollDowns}>
@@ -49,4 +49,4 @@ const ScrollIndicator = () => {
     )
 }
 
-export default ScrollIndicator
+export default ScrollCursor

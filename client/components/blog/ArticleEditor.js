@@ -4,8 +4,8 @@ import { Box, Button, Grid, Hidden, IconButton, TextField } from '@material-ui/c
 import SaveIcon from '@material-ui/icons/Save';
 import TagSelection from '../Tag/TagSelection'
 import CategorySelection from '../Category/CategorySelection';
-import config from './config'
 import ImageUploader from '../ImageUpLoader'
+import { uploadURI } from '../../api/config'
 
 const Editor = dynamic(() => import("jodit-react"), { ssr: false })
 
@@ -15,9 +15,9 @@ const Editor = dynamic(() => import("jodit-react"), { ssr: false })
 // lg: 1200px
 // xl: 1536px
 
-const BlogEditor = ({ initial, onSave = (data) => { } }) => {
+const ArticleEditor = ({ initial, onSave = (data) => { } }) => {
 
-    let newBlog = useRef(initial ? initial : {
+    let newArticle = useRef(initial ? initial : {
         title: "",
         author: "",
         content: "",
@@ -28,13 +28,13 @@ const BlogEditor = ({ initial, onSave = (data) => { } }) => {
         author: "60f4fd41a12bb9104e93ddc6"
     }).current
 
-    const onChangeTag = (tags) => newBlog.tags = tags
-    const onChangeCategory = (categories) => newBlog.categories = categories
-    const onChangeContent = content => newBlog.content = content
-    const onChangeDesc = event => newBlog.desc = event.target.value
-    const onChangeTitle = event => newBlog.title = event.target.value
-    const onChangeImage = (image) => newBlog.img_url = image.data_url
-    const onSaveClick = () => onSave(newBlog)
+    const onChangeTag = (tags) => newArticle.tags = tags
+    const onChangeCategory = (categories) => newArticle.categories = categories
+    const onChangeContent = content => newArticle.content = content
+    const onChangeDesc = event => newArticle.desc = event.target.value
+    const onChangeTitle = event => newArticle.title = event.target.value
+    const onChangeImage = (image) => newArticle.img_url = image.data_url
+    const onSaveClick = () => onSave(newArticle)
 
     return (
         <Grid container>
@@ -49,7 +49,7 @@ const BlogEditor = ({ initial, onSave = (data) => { } }) => {
                         label="Title"
                         style={{ width: "100%" }}
                         onChange={onChangeTitle}
-                        defaultValue={newBlog.title}
+                        defaultValue={newArticle.title}
                     />
                 </Box>
                 <Box width={"100%"} pt={1} pb={1}>
@@ -58,30 +58,30 @@ const BlogEditor = ({ initial, onSave = (data) => { } }) => {
                         label="Describe"
                         style={{ width: "100%" }}
                         onChange={onChangeDesc}
-                        defaultValue={newBlog.desc}
+                        defaultValue={newArticle.desc}
                     />
                 </Box>
                 <Box width={"100%"} pt={1} pb={1}>
                     <TagSelection
                         onChange={onChangeTag}
-                        defaultValue={newBlog.tags}
+                        defaultValue={newArticle.tags}
                     />
                 </Box>
                 <Box width={"100%"} pt={1} pb={1}>
                     <CategorySelection
                         onChange={onChangeCategory}
-                        defaultValue={newBlog.categories}
+                        defaultValue={newArticle.categories}
                     />
                 </Box>
                 <Box width={"100%"} pt={1} pb={1}>
                     <ImageUploader
                         onChange={onChangeImage}
-                        defaultValue={newBlog.img_url}
+                        defaultValue={newArticle.img_url}
                     />
                 </Box>
                 <Box width={"100%"}>
                     <Editor
-                        value={newBlog.content}
+                        value={newArticle.content}
                         config={config}
                         tabIndex={1}
                         onBlur={onChangeContent}
@@ -112,4 +112,53 @@ const BlogEditor = ({ initial, onSave = (data) => { } }) => {
     )
 }
 
-export default BlogEditor
+export default ArticleEditor
+
+const config = {
+    zIndex: 0,
+    readonly: false,
+    activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about'],
+    toolbarButtonSize: 'middle',
+    theme: 'default',
+    enableDragAndDropFileToEditor: true,
+    saveModeInCookie: false,
+    spellcheck: true,
+    editorCssClass: false,
+    triggerChangeEvent: true,
+    height: 500,
+    direction: 'ltr',
+    language: 'en',
+    debugLanguage: false,
+    i18n: 'en',
+    tabIndex: -1,
+    toolbar: true,
+    enter: 'P',
+    useSplitMode: false,
+    colorPickerDefaultTab: 'background',
+    imageDefaultWidth: 100,
+    disablePlugins: ['paste', 'stat'],
+    events: {},
+    textIcons: false,
+    uploader: {
+        url: uploadURI,
+        insertImageAsBase64URI: true,
+        imagesExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+        filesVariableName: function (t) {
+            return 'files[' + t + ']';
+        }, 
+        withCredentials: false,
+        pathVariableName: 'path',
+        format: 'json',
+        method: 'POST',
+    },
+    filebrowser: {
+        ajax: {
+            url: "/api/file/files",
+        },
+        uploader: {
+            url: uploadURI
+        },
+    },
+    placeholder: 'Writing...',
+    showXPathInStatusbar: false
+}

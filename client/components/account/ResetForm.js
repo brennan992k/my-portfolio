@@ -2,7 +2,7 @@ import { Box, Button, LinearProgress, TextField, Typography } from '@material-ui
 import { makeStyles } from '@material-ui/core/styles'
 import React, { useRef, useState } from 'react'
 import * as api from "../../api/auth"
-import Link from '../../components/Link'
+import Link from '../Link'
 
 const useStyles = makeStyles((theme) => ({
     section: {

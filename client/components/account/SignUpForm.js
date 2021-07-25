@@ -2,7 +2,7 @@ import { Backdrop, Box, Button, LinearProgress, TextField, Typography } from '@m
 import { makeStyles } from '@material-ui/core/styles'
 import React, { useRef, useState } from 'react'
 import { usePreSignup } from "../../api/auth"
-import Link from '../../components/Link'
+import Link from '../Link'
 
 const useStyles = makeStyles((theme) => ({
     section: {

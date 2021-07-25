@@ -283,7 +283,6 @@ const conection = () => {
             mongoose.connection.on('error', (error) => {
                 logger.error('error！', error)
                 mongoose.disconnect()
-                process.exit(99)
             })
         }
 

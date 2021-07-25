@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { throttle } from 'throttle-debounce';
-import { ThresholdUnits, parseThreshold } from '../../utils/threshold';
+import { ThresholdUnits, parseThreshold } from './../utils/threshold';
 
 export default class InfiniteScroll extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             showLoader: false,
             pullToRefreshThresholdBreached: false,

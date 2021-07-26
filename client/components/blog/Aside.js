@@ -5,7 +5,6 @@ import TagList from './TagList'
 import CategoryList from './CategoryList'
 import Note from './Note'
 import WriteArticle from './WriteArticle'
-import StickyBox from '../StickyBox'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
     },
     section: {
-
+        margin: theme.spacing(2)
     }
 }))
 
@@ -22,17 +21,14 @@ const Aside = () => {
 
     return (
         <Box className={classes.root}>
-            <StickyBox offsetTop={100} offsetBottom={0}>
-                {/*==== Write Article ====*/}
-                <WriteArticle />
-                {/*==== Note ====*/}
-                <Note />
-                {/*==== Categories ===*/}
-                <CategoryList />
-                {/*==== Tags ====*/}
-                <TagList />
-            </StickyBox>
-
+            {/*==== Write Article ====*/}
+            <WriteArticle className={classes.section} />
+            {/*==== Note ====*/}
+            <Note className={classes.section} />
+            {/*==== Categories ===*/}
+            <CategoryList className={classes.section} />
+            {/*==== Tags ====*/}
+            <TagList className={classes.section} />
         </Box>
     )
 }

@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export const ArticleCardSkeleton = () => {
+export const ArticleCardSkeleton = ({ className }) => {
     const classes = useStyles()
     return (
-        <Section>
+        <Section className={className}>
             <Grid container spacing={2}>
                 <Grid item sm={12} md={4} >
                     <Box className={classes.left}>
@@ -65,11 +65,11 @@ export const ArticleCardSkeleton = () => {
     )
 }
 
-export default function ArticleCard({ data }) {
+export default function ArticleCard({ data, className }) {
     const classes = useStyles()
 
     return (
-        <Section>
+        <Section className={className}>
             <Grid container spacing={2}>
                 <Grid item sm={12} md={4} >
                     <Box className={classes.left}>

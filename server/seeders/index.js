@@ -13,7 +13,7 @@ module.exports.seed = async () => {
     try {
         await conection()
         // await apiSeeding()
-        // await tagSeeding()
+        await tagSeeding()
         // await categorySeeding()
         // await permissionSeeding()
         // await roleSeeding()

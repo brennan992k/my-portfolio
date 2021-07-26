@@ -58,8 +58,8 @@ const Header = (props) => {
                     {width <= 600 ? (
                         <Fragment>
                             <Grid container direction="row" justifyContent="space-between" alignItems="center">
-                                <Typography color="inherit" variant="h3"></Typography>
-                                <Typography color="inherit" variant="h3">Title</Typography>
+                                <Typography variant="h3"></Typography>
+                                <Typography variant="h3">Title</Typography>
                                 <MenuIcon className={classes.sideBarIcon} onClick={toggle} />
                             </Grid>
                             <SwipeableDrawer
@@ -90,14 +90,13 @@ const Header = (props) => {
                         </Fragment>
                     ) : (
                         <Fragment>
-                            <Typography variant="h3" style={{ flexGrow: 1 }} color="inherit" >Title</Typography>
+                            <Typography variant="h3" style={{ flexGrow: 1 }}  >Title</Typography>
                             {
                                 menu.map((item) => (
                                     <Typography
                                         key={`${item.key}`}
                                         variant="subtitle1"
                                         className={classes.padding}
-                                        color="#fff"
                                     >
                                         {item.label}
                                     </Typography>

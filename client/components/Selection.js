@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
 import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        display:"flex",
         listStyle: 'none',
         padding: theme.spacing(1),
         margin: 0,
+        flexDirection:"column",
     },
-    chip: {
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    }
 }));
 
-const ChipSelection = ({ defaultValue = [], fieldCheck = "key", fieldLabel = "label", data = [], onChange = (data = []) => { }, mutilable = true }) => {
+const Selection = ({ defaultValue = [], fieldCheck = "key", data = [], onChange = (data = []) => { }, mutilable = true, renderItem, className }) => {
     const classes = useStyles();
-
     const [values, setValues] = useState(defaultValue)
 
     const onSelection = async (data) => {
@@ -38,16 +32,15 @@ const ChipSelection = ({ defaultValue = [], fieldCheck = "key", fieldLabel = "la
     }
 
     return (
-        <Box component="ul" className={classes.root}>
+        <Box component="ul" className={`${classes.root} ${className}`}>
             {data.map((item) => {
                 return (
                     <li key={item[fieldCheck]}>
-                        <Chip
-                            label={item[fieldLabel]}
-                            onClick={() => onSelection(item[fieldCheck])}
-                            className={classes.chip}
-                            color={values.indexOf(item[fieldCheck]) > -1 ? "primary" : "default"}
-                        />
+                        {renderItem({
+                            item,
+                            onClick: () => onSelection(item[fieldCheck]),
+                            isSelected: values.indexOf(item[fieldCheck]) > -1
+                        })}
                     </li>
                 );
             })}
@@ -55,4 +48,4 @@ const ChipSelection = ({ defaultValue = [], fieldCheck = "key", fieldLabel = "la
     );
 }
 
-export default ChipSelection
+export default Selection

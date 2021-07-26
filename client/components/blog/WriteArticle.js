@@ -12,16 +12,14 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        width: "100%",
-        padding: theme.spacing(1),
         "& > *": {
             margin: theme.spacing(1)
-        }
+        },
     }
 
 }))
 
-const WriteArticle = () => {
+const WriteArticle = ({ className }) => {
     const classes = useStyles();
     const userInfo = useUserInfo()
     const router = useRouter()
@@ -35,7 +33,7 @@ const WriteArticle = () => {
     }
 
     return (
-        <Section className={classes.root}>
+        <Section className={`${classes.root} ${className}`}>
             <Typography align={"center"} >
                 Are you an amazing writer?
             </Typography>

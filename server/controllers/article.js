@@ -52,8 +52,8 @@ class ArticleController extends Controller {
         const categories = cid ? await cid.split(",").map((str) => mongoose.Types.ObjectId(str)) : []
         const tags = tid ? await tid.split(",").map((str) => mongoose.Types.ObjectId(str)) : []
         const query = new QueryRules(options, {
-            cid: (str) => ({ categories: { $in: categories } }),
-            tid: (str) => ({ tags: { $in: tags } }),
+            cid: (str) => ({ categories: { $all: categories } }),
+            tid: (str) => ({ tags: { $all: tags } }),
             key: (str) => ({ $or: [{ title: { $regex: new RegExp(str, 'i') } }, { desc: { $regex: new RegExp(str, 'i') } }] }),
         }).generateQuery();
         return await this.readByPage(query, { page, limit, sort }, completion)

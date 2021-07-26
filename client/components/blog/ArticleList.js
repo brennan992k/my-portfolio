@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AOS from "aos"
 import InfiniteScroll from '../InfiniteScroll'
-import { useArticles, fetchMoreArticles } from '../../redux/features/articles'
+import * as articles from '../../redux/features/articles'
 import ArticleCard, { ArticleCardSkeleton } from './ArticleCard'
 
 const useStyles = makeStyles((theme) => ({
@@ -17,16 +17,19 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         overflow: "hidden",
+    },
+    item: {
+        margin: theme.spacing(2)
     }
 }))
 
 const ArticleList = () => {
 
     const classes = useStyles()
-    const state = useArticles()
+    const state = articles.useState()
     const dispatch = useDispatch()
 
-    const fetchState = () => dispatch(fetchMoreArticles(state))
+    const fetchState = () => dispatch(articles.fetchMore(state))
 
     useEffect(() => {
 
@@ -68,8 +71,8 @@ const ArticleList = () => {
         >
             <Box className={classes.root}>
                 {state.items.map((article) => (
-                    <Box key={article._id} data-aos={"fade-up"} style={{ padding: 10 }} >
-                        <ArticleCard data={article} />
+                    <Box key={article._id} data-aos={"fade-up"}>
+                        <ArticleCard data={article} className={classes.item} />
                     </Box>
                 ))}
             </Box>

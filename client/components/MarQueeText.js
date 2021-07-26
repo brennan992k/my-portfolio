@@ -21,7 +21,7 @@ const MarQueeText = (props) => {
         }
     }, [x])
     return (
-        <canvas ref={canvas} width="252" height="40" />
+        <canvas ref={canvas} width="100%" height="40" />
     );
 }
 export default MarQueeText

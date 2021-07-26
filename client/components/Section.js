@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Section = (props) => {
+const Section = ({ className, ...props }) => {
     const classes = useStyles()
-    return <Box {...props} className={classes.root} />
+    return <Box {...props} className={`${classes.root} ${className}`} />
 }
 
 export default Section

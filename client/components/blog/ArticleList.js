@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AOS from "aos"
 import InfiniteScroll from '../InfiniteScroll'
 import { useArticles, fetchMoreArticles } from '../../redux/features/articles'
-import ArticleCard from './ArticleCard'
+import ArticleCard, { ArticleCardSkeleton } from './ArticleCard'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -33,14 +33,23 @@ const ArticleList = () => {
         fetchState()
 
         AOS.init({
-            offset: 200,
-            duration: 600,
+            offset: 40,
+            duration: 500,
             easing: 'ease-in-sine',
-            delay: 100,
+            delay: 10,
         })
 
     }, [])
 
+    if (state.loading) return (
+        <Box className={classes.root}>
+            {Array.from({ length: 10 }).map((_, index) => (
+                <Box key={`${index}`} data-aos={"fade-up"} style={{ padding: 10 }} >
+                    <ArticleCardSkeleton />
+                </Box>
+            ))}
+        </Box>
+    )
     return (
         <InfiniteScroll
             dataLength={state.items.length}
@@ -48,6 +57,14 @@ const ArticleList = () => {
             hasMore={state.items.length < state.total}
             pullDownToRefresh
             refreshFunction={fetchState}
+            loader={(
+                <Box className={classes.root}>
+                    <Box style={{ padding: 10 }} >
+                        <ArticleCardSkeleton />
+                    </Box>
+                </Box>
+            )}
+
         >
             <Box className={classes.root}>
                 {state.items.map((article) => (

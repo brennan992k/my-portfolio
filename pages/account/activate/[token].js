@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
-import ActiveForm from '../../../client/components/Form/ActiveForm'
+import ActiveForm from '../../../client/components/account/ActiveForm'
 
 const Page = () => {
     return (

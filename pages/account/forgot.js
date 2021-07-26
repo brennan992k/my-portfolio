@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
-import ForgotForm from '../../client/components/Form/ForgotForm'
+import ForgotForm from '../../client/components/account/ForgotForm'
 
 const Page = () => {
 

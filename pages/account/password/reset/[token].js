@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
-import ResetForm from '../../../../client/components/Form/ResetForm'
+import ResetForm from '../../../../client/components/account/ResetForm'
 
 const Page = () => {
 

@@ -1,11 +1,11 @@
-import Layout from "../../client/components/Layout"
+import React, { Component } from 'react'
 
-const Page = () => {
-    return (
-        <Layout>
-
-        </Layout>
-    )
+export default class index extends Component {
+    render() {
+        return (
+            <div>
+                
+            </div>
+        )
+    }
 }
-
-export default Page

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Hidden, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import SignInForm from '../../client/components/Form/SignInForm'
+import SignInForm from '../../client/components/account/SignInForm'
 
 const useStyles = makeStyles((theme) => ({
     left: {

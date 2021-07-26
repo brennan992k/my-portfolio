@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Hidden, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import SignUpForm from '../../client/components/Form/SignUpForm'
+import SignUpForm from '../../client/components/account/SignUpForm'
 
 const useStyles = makeStyles((theme) => ({
     left: {

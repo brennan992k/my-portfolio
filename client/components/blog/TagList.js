@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Button, Typography } from "@material-ui/core"
+import { LocalOffer as LocalOfferIcon } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/core/styles"
 import { useTags, fetchMoreTags } from "../../redux/features/tags"
 import { setLoading, fetchMoreArticles, getArticles, setParams } from "../../redux/features/articles"
@@ -31,7 +32,7 @@ const TagList = () => {
 
     return (
         <Section>
-            <Typography >Tags</Typography>
+            <Typography ><LocalOfferIcon /> Tags</Typography>
             {
                 state.items.map((item) => (
                     <Button key={item._id} onClick={() => onFetchArticle(item._id)}>

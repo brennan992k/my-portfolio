@@ -1,6 +1,15 @@
 import _ from 'lodash'
 import { useEffect, useState } from 'react'
 
+function isJSON(value) {
+    try {
+        JSON.parse(value)
+        return true
+    } catch (error) {
+        return false
+    }
+}
+
 class Storage {
 
     static instance
@@ -32,18 +41,13 @@ class Storage {
     }
 
     get = (key, onSuccess = (value) => { }) => {
-        try {
-            if (!this.isServer()) {
-                let value = window.localStorage.getItem(key)
-                value = JSON.parse(value)
-                onSuccess(value)
-                return value
-            }
-            return null
-        } catch (error) {
-            console.log(error.message)
+        if (!this.isServer()) {
+            let value = window.localStorage.getItem(key)
+            value = isJSON(value) ? JSON.parse(value) : value
+            onSuccess(value)
+            return value
         }
-
+        return null
     }
 
     remove = (key, onSuccess = () => { }) => {

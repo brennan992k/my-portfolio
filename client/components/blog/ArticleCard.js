@@ -7,7 +7,6 @@ import Image from '../Image'
 import Link from '../Link'
 import Section from '../Section'
 
-
 const useStyles = makeStyles((theme) => ({
     left: {
         overflow: "hidden",
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     meta: {
         display: "flex",
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
     }
 }))
 
@@ -65,8 +64,9 @@ export const ArticleCardSkeleton = ({ className }) => {
     )
 }
 
-export default function ArticleCard({ data, className }) {
+export default function ArticleCard({ data, className, onLike, isLike, isAuthor }) {
     const classes = useStyles()
+    const _onLike = () => onLike(data)
 
     return (
         <Section className={className}>
@@ -88,13 +88,13 @@ export default function ArticleCard({ data, className }) {
                             <Typography variant={"body1"}>{data.desc}</Typography>
                         </Box>
                         <Box className={classes.meta}>
-                            <IconButton >
+                            <IconButton onClick={_onLike} >
+                                <FavoriteIcon color={isLike? "secondary": "default"} fontSize={"small"} />
+                            </IconButton>
+                            <IconButton disabled>
                                 <VisibilityIcon fontSize={"small"} />
                             </IconButton>
-                            <IconButton >
-                                <FavoriteIcon fontSize={"small"} />
-                            </IconButton>
-                            <IconButton >
+                            <IconButton disabled>
                                 <SmsIcon fontSize={"small"} />
                             </IconButton>
                         </Box>

@@ -16,7 +16,7 @@ export const initialState = {
     total: 0,
     items: [],
     params: initialParams,
-    loading: false,
+    loading: true,
     cache: {}
 }
 
@@ -60,6 +60,15 @@ const slice = createSlice({
                 params
             }
             return state
+        },
+        updateItem(state, action) {
+            state.items = state.items.map((item) => {
+                if (item._id == action.payload._id) {
+                    return { ...item, ...action.payload.data }
+                }
+                return item
+            })
+            return state
         }
     }
 })
@@ -83,7 +92,7 @@ export const getState = (store) => {
     return value?.[slice.name]
 }
 
-export const { setLoading, setParams, setData, setCache, setState } = slice.actions
+export const { setLoading, setParams, setData, setCache, setState, updateItem } = slice.actions
 
 /**
  * 

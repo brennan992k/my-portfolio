@@ -7,6 +7,8 @@ import AOS from "aos"
 import InfiniteScroll from '../InfiniteScroll'
 import * as articles from '../../redux/features/articles'
 import ArticleCard, { ArticleCardSkeleton } from './ArticleCard'
+import { useUserId } from "../../api/auth"
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -28,8 +30,17 @@ const ArticleList = () => {
     const classes = useStyles()
     const state = articles.useState()
     const dispatch = useDispatch()
+    const userId = useUserId()
+    const router = useRouter()
 
     const fetchState = () => dispatch(articles.fetchMore(state))
+    const onLike = (data) => {
+        if (userId) {
+            dispatch(articles.update(data._id, { like_users: [userId] }))
+        } else {
+            router.push("/account/signin")
+        }
+    }
 
     useEffect(() => {
 
@@ -72,7 +83,13 @@ const ArticleList = () => {
             <Box className={classes.root}>
                 {state.items.map((article) => (
                     <Box key={article._id} data-aos={"fade-up"}>
-                        <ArticleCard data={article} className={classes.item} />
+                        <ArticleCard
+                            data={article}
+                            className={classes.item}
+                            onLike={onLike}
+                            isAuthor={article.author == userId}
+                            isLike={article.like_users.filter((user) => user && user._id == userId)[0]}
+                        />
                     </Box>
                 ))}
             </Box>

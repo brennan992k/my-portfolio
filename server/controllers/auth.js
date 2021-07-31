@@ -147,7 +147,7 @@ exports.resetPassword = async (data, completion = (error, data, accessToken)) =>
             logger.info("reset password  decoded token", decoded)
 
             const { _id } = decoded
-            const user = await User.update({ _id }, { password: newPassword })
+            const user = await User.update({ query: { _id }, data: { password: newPassword } })
             if (!user.error) throw new Error(user.error)
             if (!user.data) throw new Error('Something went wrong. Try later')
 

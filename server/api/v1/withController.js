@@ -1,4 +1,4 @@
-const { response } = require("../../../utils/reqres")
+const { response } = require("../../utils/reqres")
 const express = require("express")
 
 /**
@@ -20,9 +20,9 @@ module.exports = (controller, middleware = (req, res, next, action) => next()) =
 
     router.post('/detail', middle("read"), (req, res) => controller.readItem(req.body, response(res)));
 
-    router.post('/add', middle("create"), (req, res) => controller.create(req.body, response(res)));
+    router.post('/create', middle("create"), (req, res) => controller.create(req.body, response(res)));
 
-    router.post('/update', middle("update"), (req, res) => controller.update(req.params, req.body, response(res)));
+    router.post('/update', middle("update"), (req, res) => controller.update(req.body, response(res)));
 
     router.post('/delete', middle("delete"), () => controller.delete(req.body, response(res)));
 

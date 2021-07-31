@@ -174,10 +174,15 @@ class Controller {
         }
     }
 
-    update = async (query = {}, data, completion = (error, doc) => { }) => {
+    update = async (options, completion = (error, doc) => { }) => {
         try {
+            if (!_.has(options, "query") || !_.has(options, "data")) {
+                throw new Error(`Param is not validated`)
+            }
+            const { query, data } = options
             const updatedDoc = await this._Model
-                .findOneAndUpdate(query, { ...data, updated_at: Date.now }, { new: true })
+                .findOneAndUpdate(query, { ...data, updated_at: Date.now() }, { new: true })
+                .populate(this.populatePaths)
                 .select(this.getPrivateItem())
 
             if (!updatedDoc || _.isEmpty(updatedDoc)) {
@@ -224,7 +229,6 @@ class Controller {
                 data: null
             }
         }
-
     }
 
 }

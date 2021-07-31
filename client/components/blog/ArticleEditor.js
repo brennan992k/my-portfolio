@@ -9,12 +9,6 @@ import { uploadURI } from '../../api/config'
 
 const Editor = dynamic(() => import("jodit-react"), { ssr: false })
 
-// xs: 0px
-// sm: 600px
-// md: 900px
-// lg: 1200px
-// xl: 1536px
-
 const ArticleEditor = ({ initial, onSave = (data) => { } }) => {
 
     let newArticle = useRef(initial ? initial : {

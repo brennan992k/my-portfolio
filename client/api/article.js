@@ -44,16 +44,30 @@ export const createArticle = async (data, completion) => {
     return null
 }
 
-export const likeArticle = async (params, completion) => {
-    // const response = await axios.post("/api/v1/article/detail", params, { withCredentials: true })
-    // if (response && response.status == 200) {
-    //     const data = response.data
-    //     const result = data?.data
-    //     if (data.status == "success" && result) {
-    //         _.isFunction(completion) && completion(result)
-    //         return result
-    //     }
-    // }
-    // _.isFunction(completion) && completion(null)
-    // return null
+export const updateArticle = async (query, data, completion) => {
+    const response = await axios.post(articleURI.update, { query, data }, { withCredentials: true })
+    if (response && response.status == 200) {
+        const data = response.data
+        const result = data?.data
+        if (data.status == "success" && result) {
+            _.isFunction(completion) && completion(result)
+            return result
+        }
+    }
+    _.isFunction(completion) && completion(null)
+    return null
+};
+
+export const likeArticle = async (data, completion) => {
+    const response = await axios.post(articleURI.like, data, { withCredentials: true })
+    if (response && response.status == 200) {
+        const data = response.data
+        const result = data?.data
+        if (data.status == "success" && result) {
+            _.isFunction(completion) && completion(result)
+            return result
+        }
+    }
+    _.isFunction(completion) && completion(null)
+    return null
 };

@@ -3,15 +3,17 @@ export const BASEURI = "/api/v1"
 export const articleURI = {
     list: BASEURI + "/article",
     detail: BASEURI + "/article/detail",
-    add: BASEURI + "/article/add",
+    create: BASEURI + "/article/create",
     delete: BASEURI + "/article/delete",
     update: BASEURI + "/article/update",
+    like: BASEURI + "/article/like",
+    comment: BASEURI + "/article/comment",
 }
 
 export const tagURI = {
     list: BASEURI + "/tag",
     detail: BASEURI + "/tag/detail",
-    add: BASEURI + "/tag/add",
+    create: BASEURI + "/tag/create",
     delete: BASEURI + "/tag/delete",
     update: BASEURI + "/tag/update",
 }
@@ -19,7 +21,7 @@ export const tagURI = {
 export const categoryURI = {
     list: BASEURI + "/category",
     detail: BASEURI + "/category/detail",
-    add: BASEURI + "/category/add",
+    create: BASEURI + "/category/create",
     delete: BASEURI + "/category/delete",
     update: BASEURI + "/category/update",
 }

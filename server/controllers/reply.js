@@ -27,10 +27,10 @@ class ReplyController extends Controller {
                     } else {
                         const { like_users = [] } = doc
                         if (data['like'] && !like_users.includes(data['user_id'])) {
-                            this.update(query, { like_users: [...like_users, data['user_id']] }, completion)
+                            this.update({ query, data: { like_users: [...like_users, data['user_id']] } }, completion)
                         } else if (!data['like'] && like_users.includes(data['user_id'])) {
                             let newLikes = await like_users.filter((user) => user != data['user_id'])
-                            this.update(query, { like_users: newLikes }, completion)
+                            this.update({ query, data: { like_users: newLikes } }, completion)
                         } else {
                             completion(null, doc)
                             return

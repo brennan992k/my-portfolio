@@ -26,7 +26,7 @@ const CategoryListSkeleton = ({ className }) => {
                 <Selection
                     data={[{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }, { key: 5 }]}
                     fieldCheck={"key"}
-                    renderItem={({ item }) => <Skeleton id={item.key} variant="text" width={"100%"} height={30} />}
+                    renderItem={({ item }) => <Skeleton id={item.key} variant="text" width={"80%"} height={30} />}
                 />
             </List>
         </Section>

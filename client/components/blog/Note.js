@@ -1,7 +1,6 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { NotificationsActive as NotificationsActiveIcon } from "@material-ui/icons"
-import MarQueeText from "../MarQueeText"
 import Section from "../Section"
 import Flash from "../Flash"
 import { Typography } from "@material-ui/core"

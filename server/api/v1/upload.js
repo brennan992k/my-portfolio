@@ -1,5 +1,5 @@
-const { response } = require("../../../utils/reqres")
-const uploadController = require("../../../controllers/upload")
+const { response } = require("../../utils/reqres")
+const uploadController = require("../../controllers/upload")
 const express = require("express")
 // const multer = require("multer")
 

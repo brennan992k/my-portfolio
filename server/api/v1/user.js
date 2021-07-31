@@ -1,4 +1,4 @@
-const user = require("../../../controllers/user")
+const user = require("../../controllers/user")
 const withController = require("./withController")
 
 

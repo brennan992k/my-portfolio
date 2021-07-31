@@ -1,57 +1,100 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
+import _ from 'lodash';
+import { useRouter } from 'next/dist/client/router';
+import { useEffect, useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as api from '../../api/article';
 
 /*==== Initial ====*/
-const initialValue = {
-    item: {},
-}
 
 const initialState = {
-    ...initialValue,
+    item: {},
+    loading: true,
     cache: {},
 };
 
-const article = createSlice({
+const slice = createSlice({
     name: 'article',
     initialState,
     reducers: {
-        setArticle(state, action) {
+        setLoading(state, action) {
+            state.loading = action.payload
+            return state
+        },
+        setData(state, action) {
             const { item } = action.payload;
             state.item = item
-            state.loading = false
+            return state
         },
-        setDataInCache(state, action) {
+        setCache(state, action) {
             const { item } = action.payload
-            state.item = item
-            state.loading = false
             state.cache[item.slug] = {
                 item
             }
+            return state
         },
+        setState(state, action) {
+            const { item } = action.payload
+            state.item = item
+            state.cache[item.slug] = {
+                item
+            }
+            return state
+        },
+        update(state, action) {
+            state.item = { ...state.item, ...action.payload }
+            return state
+        }
     },
 });
 
 /*==== Action ====*/
-export const fetchArticle = (slug) => async (dispatch) => {
-    api.fetchArticle({ slug }, (response) => {
+
+export const useState = (props = ["item", "loading"]) => {
+    const router = useRouter()
+    const dispatch = useDispatch()
+    const state = useSelector((state) => {
+        return _.pick(state[slice.name], props)
+    })
+
+    useEffect(() => {
+        if (_.has(router.query, "slug")) {
+            dispatch(fetch(router.query.slug, state))
+        }
+    }, [router])
+
+    return state
+}
+
+export const getState = (store) => {
+    const value = store.getState()
+    return value?.[slice.name]
+}
+
+export const { setLoading, setData, setCache, setState, update } = slice.actions
+
+/**
+ * 
+ * @param {String} slug 
+ * @param {Object} currentState 
+ * @returns 
+ */
+export const fetch = (slug, currentState) => async (dispatch) => {
+    if (!currentState.loading) await dispatch(setLoading(true))
+    await api.fetchArticle({ slug }, (response) => {
         if (response) {
-            dispatch(article.actions.setDataInCache({ item: response }))
+            dispatch(setState({ item: response }))
         } else {
             const cacheKey = slug
-            if (_.has(state.cache, cacheKey)) {
-                const dataCache = state.cache[cacheKey]
-                dispatch(article.actions.setArticle({
-                    ...state,
-                    ...dataCache
-                }))
+            if (currentState && _.has(currentState.cache, cacheKey)) {
+                const dataCache = currentState.cache[cacheKey]
+                dispatch(setState(dataCache))
             }
         }
     });
+    if (currentState.loading) dispatch(setLoading(false))
 };
 
-export const useArticle = () => {
-    return useSelector((state) => state[article.name])
-}
 
-export default article;
+export default slice

@@ -6,7 +6,7 @@ const helmet = require("helmet")
 const MongoStore = require('connect-mongo');
 const mongoose = require('./mongoose')
 const logger = require('./logger');
-const routers = require('./routers')
+const api = require('./api')
 const { initAuthencate } = require("./middlewares/authenticate")
 
 const { MONGODB, PORT, COOKIE_DOMAIN, SECRET, isDevMode } = require('./configs')
@@ -57,10 +57,7 @@ app.prepare().then(() => {
     server.use(initAuthencate())
 
     /*==== API ==== */
-    routers.api(server)
-
-    /*==== Client ====*/
-    routers.client(server, app)
+    api(server)
 
     server.get('*', (req, res) => {
         logger.info(req.path)
